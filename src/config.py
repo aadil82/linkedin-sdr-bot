@@ -10,12 +10,12 @@ from typing import List
 # 1.  SENDER / COMPANY PROFILE  —  EDIT THESE WITH YOUR INFO
 # ═══════════════════════════════════════════════════════════════
 
-COMPANY_NAME = "Your Company Name"
-SENDER_NAME = "Your Name"
-SENDER_TITLE = "Business Development Manager"
-SENDER_EMAIL = "you@yourcompany.com"
+COMPANY_NAME = "Logixal"
+SENDER_NAME = "Aadil Shaikh"
+SENDER_TITLE = "AI Tech Architect"
+SENDER_EMAIL = "aadil.shaikh@logixal.com"
 SENDER_PHONE = "+1-555-000-0000"
-SENDER_LINKEDIN = "https://linkedin.com/in/yourprofile"
+SENDER_LINKEDIN = "https://linkedin.com/in/aadil82"
 
 # Company description used in outreach emails
 COMPANY_DESCRIPTION = (
@@ -217,7 +217,7 @@ DOCS_DIR = "docs"
 # 7.  APPROVAL EMAIL  —  Outlook address for draft approval
 # ═══════════════════════════════════════════════════════════════
 
-APPROVAL_EMAIL = "you@yourcompany.com"  # where approval digests are sent
+APPROVAL_EMAIL = "aadil.shaikh@logixal.com"  # where approval digests are sent
 
 # ═══════════════════════════════════════════════════════════════
 # 8.  DUPLICATE DETECTION
