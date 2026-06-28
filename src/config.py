@@ -15,7 +15,7 @@ SENDER_NAME = "Aadil Shaikh"
 SENDER_TITLE = "AI Tech Architect"
 SENDER_EMAIL = "aadil.shaikh@logixal.com"
 SENDER_PHONE = "+1-555-000-0000"
-SENDER_LINKEDIN = "https://linkedin.com/in/aadil82"
+SENDER_LINKEDIN = "https://www.linkedin.com/in/aadil-shaikh-b8511a154"
 
 # Company description used in outreach emails
 COMPANY_DESCRIPTION = (
