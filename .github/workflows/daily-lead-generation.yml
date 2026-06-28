@@ -1,0 +1,65 @@
+name: Daily LinkedIn SDR Lead Generation
+
+on:
+  schedule:
+    # Run weekdays at 08:00 AM IST (02:30 UTC)
+    - cron: "30 2 * * 1-5"
+  workflow_dispatch:
+    # Allow manual trigger from GitHub UI
+
+jobs:
+  generate-leads:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check for today's input file (IST timezone)
+        id: check_input
+        run: |
+          TODAY=$(TZ=Asia/Kolkata date +%Y-%m-%d)
+          INPUT_FILE="data/input/leads_${TODAY}.csv"
+          if [ -f "$INPUT_FILE" ]; then
+            echo "input_exists=true" >> $GITHUB_OUTPUT
+            echo "input_file=$INPUT_FILE" >> $GITHUB_OUTPUT
+          else
+            echo "input_exists=false" >> $GITHUB_OUTPUT
+            echo "No input file found for $TODAY — creating a placeholder report."
+          fi
+
+      - name: Run lead engine
+        if: steps.check_input.outputs.input_exists == 'true'
+        run: |
+          python -m src.lead_engine \
+            --input "${{ steps.check_input.outputs.input_file }}" \
+            --min-score 70
+
+      - name: Create placeholder report (no input)
+        if: steps.check_input.outputs.input_exists != 'true'
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          mkdir -p data/output
+          echo "No input CSV found for ${TODAY}." > data/output/daily_summary_${TODAY}.txt
+          echo "Commit your daily LinkedIn findings to data/input/leads_${TODAY}.csv before the cron run." >> data/output/daily_summary_${TODAY}.txt
+
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-lead-reports
+          path: |
+            data/output/*.xlsx
+            data/output/*.txt
+          retention-days: 30
+          if-no-files-found: ignore
